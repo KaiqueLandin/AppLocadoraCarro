@@ -26,7 +26,9 @@ class ModeloController extends Controller
 
         if ($request->has("atributos_marca")) {
             $atributos_marca = 'marca:id,' . $request->get('atributos_marca');
-            $modeloRepository->selectAtributoMarca($atributos_marca);
+            $modeloRepository->selectAtributosRegistrosRelacionados($atributos_marca);
+        }else {
+            $modeloRepository->selectAtributosRegistrosRelacionados('marca');
         }
 
         if ($request->has('filtro')) {

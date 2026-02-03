@@ -16,8 +16,8 @@ return new class extends Migration
             $table->foreignId('cliente_id')->constrained('clientes')->onDelete('cascade');
             $table->foreignId('carro_id')->constrained('carros')->onDelete('cascade');
             $table->dateTime('data_inicio_periodo');
-            $table->dateTime('data_final_previsto_periodo');
-            $table->dateTime('data_final_realizado_periodo');
+            $table->dateTime('data_final_previsto_periodo')->nullable();
+            $table->dateTime('data_final_realizado_periodo')->nullable();
             $table->float('valor_diaria', 8,2);
             $table->integer('km_inicial');
             $table->integer('km_final');
