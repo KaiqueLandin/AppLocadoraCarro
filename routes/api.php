@@ -6,18 +6,24 @@ use App\Http\Controllers\LocacaoController;
 use App\Http\Controllers\MarcaController;
 use App\Http\Controllers\ModeloController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
 
 
-Route::middleware('auth:api')->get('/user',function(Request $request){
-    return $request->user();
+Route::post('login', [AuthController::class, 'login']);
+
+Route::middleware('auth:api')->prefix('v1')->group(function () {
+
+    Route::get('/user', function (Request $request) {
+        return $request->user();
+    });
+
+    Route::apiResource('cliente', ClienteController::class);
+    Route::apiResource('carro', CarroController::class);
+    Route::apiResource('locacao', LocacaoController::class);
+    Route::apiResource('marca', MarcaController::class);
+    Route::apiResource('modelo', ModeloController::class);
+    
+    Route::post('logout', [AuthController::class, 'logout']);
+    Route::post('refresh', [AuthController::class, 'refresh']);
+    Route::post('me', [AuthController::class, 'me']);
 });
-
-Route::apiResource('cliente',ClienteController::class);
-
-Route::apiResource('carro',CarroController::class);
-
-Route::apiResource('locacao',LocacaoController::class);
-
-Route::apiResource('marca',MarcaController::class);
-
-Route::apiResource('modelo',ModeloController::class);
